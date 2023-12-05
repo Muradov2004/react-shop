@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+// import logo from './shop.png';
 import './App.css';
+import {Link, Route, Routes} from "react-router-dom";
+import Products from "./Products";
+import Order from "./Order";
+import Admin from "./Admin";
+import ProductInfo from "./ProductInfo";
+import {useDispatch} from "react-redux";
 
 function App() {
+
+  let dispatch = useDispatch()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <Link to='/'>Products</Link>
+      <Link to='/orders'>Orders</Link>
+      <Link to='/admin'>Admin</Link>
+
+      <Routes>
+        <Route path='/' element={<Products/>}/>
+        <Route path='/orders' element={<Order/>}/>
+        <Route path='/admin' element={<Admin/>}/>
+        <Route path='/product/:productId' element={<ProductInfo />}/>
+      </Routes>
     </div>
   );
 }
