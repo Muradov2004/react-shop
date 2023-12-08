@@ -7,8 +7,6 @@ import Admin from "./Admin";
 import ProductInfo from "./ProductInfo";
 
 function App() {
-
-
   return (
     <div className="">
       <Link to='/'>Products</Link>

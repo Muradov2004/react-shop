@@ -3,27 +3,29 @@ import {createSlice} from "@reduxjs/toolkit"
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
-    productsArray: [],
+    productArray: [],
+    myBagArray: [],
     orderArray: [],
-    postData: null,
-    deleteDataFromBag: null,
+    addBagInfo: null,
+    deleteFromBagInfo: null,
     deleteDataFromGoods: null,
     adminEdited: null,
+    updateOrderCountInfo: null,
     isLoading: false,
     error: null
   },
   reducers: {
     getProducts: (state, action) => {
-      return {...state, productsArray: action.payload}
+      return {...state, productArray: action.payload}
     },
-    getMyBag: (state, action) => {
+    getOrder: (state, action) => {
       return {...state, myBagArray: action.payload}
     },
     getPostData: (state, action) => {
-      return {...state, postData: action.payload}
+      return {...state, addBagInfo: action.payload}
     },
     getDeletedBag: (state, action) => {
-      return {...state, deleteDataFromBag: action.payload}
+      return {...state, deleteFromBagInfo: action.payload}
     },
     getDeletedGoods: (state, action) => {
       return {...state, deleteDataFromGoods: action.payload}
@@ -31,9 +33,20 @@ const productsSlice = createSlice({
     getEditData: (state, action) => {
       return {...state, adminEdited: action.payload}
     },
+    updateOrderCount: (state, action) => {
+      return {...state, updateOrderCountInfo: action.payload};
+    }
   }
 })
 
-export const {getProducts, getMyBag, getPostData, getDeletedBag, getDeletedGoods, getEditData} = productsSlice.actions
+export const {
+  getProducts,
+  getOrder,
+  getPostData,
+  getDeletedBag,
+  getDeletedGoods,
+  getEditData,
+  updateOrderCount
+} = productsSlice.actions
 
 export default productsSlice.reducer

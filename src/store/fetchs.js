@@ -1,24 +1,24 @@
-import { getProducts, getMyBag, getPostData, getDeletedBag, getDeletedGoods, getEditData } from './reducer'
+import {
+  getProducts,
+  getOrder,
+  getPostData,
+  getDeletedBag,
+  getDeletedGoods,
+  getEditData,
+  updateOrderCount
+} from './reducer'
 
-export const getFetchProducts = () => dispatch =>
+export const getProductsFetch = () => dispatch =>
   fetch('http://localhost:5000/goods')
     .then(res => res.json())
-    .then(data => dispatch(getProducts(data)))
+    .then(data => {
+      dispatch(getProducts(data))
+    })
     .catch(err => console.log(err))
-
-
-export const getFetchMyBag = () => dispatch =>
-  fetch('http://localhost:5000/my-bag')
-    .then(res => res.json())
-    .then(data => dispatch(getMyBag(data)))
-    .catch(err => console.log(err))
-
-export const addFetchToBag = (obj) => dispatch =>
-  fetch('http://localhost:5000/add-goods', {
+export const addToOrderFetch = (obj) => dispatch => {
+  fetch('http://localhost:5000/add-mybag', {
     method: 'POST',
-    headers: {
-      'Content-type': 'application/json'
-    },
+    headers: {'Content-type': 'application/json'},
     body: JSON.stringify(obj)
   })
     .then(res => {
@@ -29,18 +29,34 @@ export const addFetchToBag = (obj) => dispatch =>
     })
     .then(data => dispatch(getPostData(data)))
     .catch(err => console.log(err))
-
-
-export const deleteFetchFromBag = (id) => dispatch =>
+}
+export const getOrderFetch = () => dispatch =>
+  fetch('http://localhost:5000/my-bag')
+    .then(res => res.json())
+    .then(data => dispatch(getOrder(data)))
+    .catch(err => console.log(err))
+export const deleteFromOrderFetch = (id) => dispatch =>
   fetch(`http://localhost:5000/delete-mybag/${id}`, {
     method: 'DELETE',
   })
     .then(res => res.text())
     .then(data => dispatch(getDeletedBag(data)))
     .catch(err => console.log(err))
+export const updateOrderCountFetch = (id, count) => dispatch => {
+  fetch(`http://localhost:5000/update-order-count/${id}`, {
+    method: 'PUT',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify({count})
+  })
+    .then(res => {
+      if (!res.ok) console.log(res.statusText);
+      return res.text();
+    })
+    .then(data => dispatch(updateOrderCount(data)))
+    .catch(err => console.log(err));
+}
 
-
-export const deleteFetchFromGoods = (obj) => dispatch =>
+export const deleteFetchFromProducts = (obj) => dispatch =>
   fetch(`http://localhost:5000/delete-goods/${obj.id}`, {
     method: 'DELETE',
   })
@@ -50,7 +66,7 @@ export const deleteFetchFromGoods = (obj) => dispatch =>
 
 
 export const changeFetchOfPrice = (changedObject, price) => {
-  let obj = { ...changedObject, "product_price": price }
+  let obj = {...changedObject, "product_price": price}
 
   return dispatch => {
     fetch(`http://localhost:5000/change-goods/${changedObject.id}`, {

@@ -1,15 +1,15 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getFetchProducts} from "./store/fetchs";
+import {addToOrderFetch, getProductsFetch} from "./store/fetchs";
 import {useParams} from "react-router-dom";
 
 let ProductInfo = () => {
-  let products = useSelector((state) => state.products.productsArray)
+  let products = useSelector((state) => state.products.productArray)
   let {productId} = useParams();
   let dispatch = useDispatch()
   useEffect(() => {
     if (products.length === 0) {
-      dispatch(getFetchProducts());
+      dispatch(getProductsFetch());
     }
   }, [dispatch, products]);
 
@@ -24,6 +24,7 @@ let ProductInfo = () => {
       <p>{product.product_name}</p>
       <p>{product.product_description}</p>
       <p>{product.product_price}</p>
+      <button onClick={()=> {dispatch(addToOrderFetch(product))}}>Add To Cart</button>
     </div>
   );
 }
