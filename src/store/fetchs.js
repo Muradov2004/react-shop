@@ -2,6 +2,7 @@ import {
   getProducts,
   getOrder,
   getPostData,
+  getSendOrderData,
   getDeletedBag,
   getDeletedGoods,
   getEditData,
@@ -55,7 +56,21 @@ export const updateOrderCountFetch = (id, count) => dispatch => {
     .then(data => dispatch(updateOrderCount(data)))
     .catch(err => console.log(err));
 }
-
+export const sendOrderFetch = (obj) => dispatch => {
+  fetch('http://localhost:5000/add-orders', {
+    method: 'POST',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify(obj)
+  })
+    .then(res => {
+      if (!res.ok) {
+        console.log(res.statusText)
+      }
+      return res.text()
+    })
+    .then(data => dispatch(getSendOrderData(data)))
+    .catch(err => console.log(err))
+}
 export const deleteFetchFromProducts = (obj) => dispatch =>
   fetch(`http://localhost:5000/delete-goods/${obj.id}`, {
     method: 'DELETE',

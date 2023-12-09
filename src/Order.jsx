@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {deleteFromOrderFetch, getOrderFetch, updateOrderCountFetch} from "./store/fetchs";
 import {InputNumber} from "antd";
+import OrderForm from "./OrderForm";
 
 let Order = () => {
   let [filterOrders, setFilterOrders] = useState([]);
@@ -28,7 +29,6 @@ let Order = () => {
   }, [searchValue]);
 
   let handleSortAscDesc = () => {
-    console.log("salam");
     if (content === 'asc') {
       setContent('desc');
       setFilterOrders([...filterOrders].sort((a, b) => a.product_price - b.product_price))
@@ -41,8 +41,8 @@ let Order = () => {
     dispatch(updateOrderCountFetch(id, value));
   }
   let handleDelete = (id) => {
-    dispatch(deleteFromOrderFetch(id));
-    dispatch(getOrderFetch());
+    dispatch(deleteFromOrderFetch(id))
+      .then(() => dispatch(getOrderFetch()));
   }
 
   return (
@@ -55,6 +55,7 @@ let Order = () => {
         onChange={(e) => setSearchValue(e.target.value)}
       />
       <button onClick={handleSortAscDesc}>{content}</button>
+      <OrderForm orders={orderedProducts}/>
       <ul>{filterOrders.map((item, index) => {
         return (
           <div key={index}>
