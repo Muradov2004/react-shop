@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {addToOrderFetch, getProductsFetch} from "./store/fetchs";
+import {addToOrderFetch, getProductsFetch, searchProductFetch} from "./store/fetchs";
 import {Link} from "react-router-dom";
 import {notification} from "antd";
 
@@ -13,10 +13,10 @@ let Products = () => {
   let addInfo = useSelector((state) => state.products.addBagInfo)
   let dispatch = useDispatch()
   const [api, contextHolder] = notification.useNotification();
-  const openNotification = (placement) => {
+  const openNotification = () => {
     api.info({
       message: addInfo,
-      placement,
+      placement: "bottom",
       style: {
         minHeight: 'min-content',
       },
@@ -27,19 +27,17 @@ let Products = () => {
     dispatch(getProductsFetch())
   }, [dispatch]);
   useEffect(() => {
+    console.log(products);
     sortArray(localStorage.getItem("male"), localStorage.getItem("female"));
   }, [products]);
-  useEffect(() => {
+  useEffect(() =>  {
     if (addInfo) {
-      openNotification('bottom');
+      openNotification();
     }
   }, [addInfo]);
   useEffect(() => {
-    let newArr = products.filter((item) => {
-      const regex = new RegExp(searchValue, "i");
-      return regex.test(item.product_name);
-    });
-    setFilteredProducts(newArr);
+    if (searchValue !== '') dispatch(searchProductFetch(searchValue));
+    else dispatch(getProductsFetch());
   }, [searchValue]);
 
   let sortArray = (man, female) => {

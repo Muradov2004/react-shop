@@ -4,17 +4,16 @@ import {
   getPostData,
   getSendOrderData,
   getDeletedBag,
-  getDeletedGoods,
+  deletedProducts,
   getEditData,
+  getAdminAdded,
   updateOrderCount
 } from './reducer'
 
 export const getProductsFetch = () => dispatch =>
   fetch('http://localhost:5000/goods')
     .then(res => res.json())
-    .then(data => {
-      dispatch(getProducts(data))
-    })
+    .then(data => dispatch(getProducts(data)))
     .catch(err => console.log(err))
 export const addToOrderFetch = (obj) => dispatch => {
   fetch('http://localhost:5000/add-mybag', {
@@ -71,20 +70,34 @@ export const sendOrderFetch = (obj) => dispatch => {
     .then(data => dispatch(getSendOrderData(data)))
     .catch(err => console.log(err))
 }
-export const deleteFetchFromProducts = (obj) => dispatch =>
-  fetch(`http://localhost:5000/delete-goods/${obj.id}`, {
+export const deleteFromProductsFetch = (obj) => dispatch =>
+  fetch(`http://localhost:5000/delete-admin/${obj.id}`, {
     method: 'DELETE',
   })
     .then(res => res.text())
-    .then(data => dispatch(getDeletedGoods(data)))
+    .then(data => dispatch(deletedProducts(data)))
     .catch(err => console.log(err))
-
-
-export const changeFetchOfPrice = (changedObject, price) => {
+export const searchProductFetch = (searchValue) => dispatch =>
+  fetch(`http://localhost:5000/search-goods/${searchValue}`, {
+    method: 'GET',
+  })
+    .then(res => res.json())
+    .then(data => dispatch(getProducts(data)))
+    .catch(err => console.log(err))
+export const addProductAdminFetch = (obj) => dispatch =>
+  fetch('http://localhost:5000/add-admin',{
+    method:'POST',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify(obj)
+  })
+    .then(res => res.text())
+    .then(data => dispatch(getAdminAdded(data)))
+    .catch(err => console.log(err))
+export const changePriceFetch = (changedObject, price) => {
   let obj = {...changedObject, "product_price": price}
 
   return dispatch => {
-    fetch(`http://localhost:5000/change-goods/${changedObject.id}`, {
+    fetch(`http://localhost:5000/change-admin/${changedObject.id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json'

@@ -60,7 +60,6 @@ let Order = () => {
         return (
           <div key={index}>
             <img src={item.product_image} alt="#"/>
-            <p>{item.id}</p>
             <p>{item.product_name}</p>
             <p>{item.product_description}</p>
             <p>{item.product_price}</p>

@@ -9,8 +9,9 @@ const productsSlice = createSlice({
     addBagInfo: null,
     sendOrderInfo: null,
     deleteFromBagInfo: null,
-    deleteDataFromGoods: null,
+    deleteProductsInfo: null,
     adminEdited: null,
+    adminAdded: null,
     updateOrderCountInfo: null,
     isLoading: false,
     error: null
@@ -31,11 +32,14 @@ const productsSlice = createSlice({
     getDeletedBag: (state, action) => {
       return {...state, deleteFromBagInfo: action.payload}
     },
-    getDeletedGoods: (state, action) => {
-      return {...state, deleteDataFromGoods: action.payload}
+    deletedProducts: (state, action) => {
+      return {...state, deleteProductsInfo: action.payload}
     },
     getEditData: (state, action) => {
       return {...state, adminEdited: action.payload}
+    },
+    getAdminAdded: (state, action) => {
+      return {...state, adminAdded: action.payload};
     },
     updateOrderCount: (state, action) => {
       return {...state, updateOrderCountInfo: action.payload};
@@ -49,8 +53,9 @@ export const {
   getPostData,
   getSendOrderData,
   getDeletedBag,
-  getDeletedGoods,
+  deletedProducts,
   getEditData,
+  getAdminAdded,
   updateOrderCount
 } = productsSlice.actions
 
