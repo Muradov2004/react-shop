@@ -1,0 +1,52 @@
+#components-grid-demo-playground {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#components-grid-demo-playground a {
+    width: calc(25% - 12px);
+    margin-bottom: 24px;
+}
+
+#components-grid-demo-playground .ant-card {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+#components-grid-demo-playground img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+}
+
+#components-grid-demo-playground .ant-card-meta-title {
+    font-size: 16px;
+    font-weight: bold;
+    flex: 1;
+}
+
+#components-grid-demo-playground .ant-card-meta-description {
+    font-size: 14px;
+}
+
+#components-grid-demo-playground button {
+    margin-top: 12px;
+}
+
+h1 {
+    align-self: stretch;
+}
+
+.product {
+    padding: 20px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}

@@ -1,6 +1,7 @@
 import {
   getProducts,
   getOrder,
+  getAllOrders,
   getPostData,
   getSendOrderData,
   getDeletedBag,
@@ -34,6 +35,11 @@ export const getOrderFetch = () => dispatch =>
   fetch('http://localhost:5000/my-bag')
     .then(res => res.json())
     .then(data => dispatch(getOrder(data)))
+    .catch(err => console.log(err))
+export const getAllOrderFetch = () => dispatch =>
+  fetch('http://localhost:5000/orders')
+    .then(res => res.json())
+    .then(data => dispatch(getAllOrders(data)))
     .catch(err => console.log(err))
 export const deleteFromOrderFetch = (id) => dispatch =>
   fetch(`http://localhost:5000/delete-mybag/${id}`, {
@@ -85,33 +91,34 @@ export const searchProductFetch = (searchValue) => dispatch =>
     .then(data => dispatch(getProducts(data)))
     .catch(err => console.log(err))
 export const addProductAdminFetch = (obj) => dispatch =>
-  fetch('http://localhost:5000/add-admin',{
-    method:'POST',
+  fetch('http://localhost:5000/add-admin', {
+    method: 'POST',
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify(obj)
   })
     .then(res => res.text())
     .then(data => dispatch(getAdminAdded(data)))
     .catch(err => console.log(err))
-export const changePriceFetch = (changedObject, price) => {
-  let obj = {...changedObject, "product_price": price}
+export const changePriceFetch = (changedObject, price) => async (dispatch) => {
+  try {
+    let obj = {...changedObject, product_price: price};
 
-  return dispatch => {
-    fetch(`http://localhost:5000/change-admin/${changedObject.id}`, {
+    const response = await fetch(`http://localhost:5000/change-admin/${changedObject.id}`, {
       method: 'PUT',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-      .then(res => {
-        console.log(res)
-        if (!res.ok) {
-          console.log(res.statusText)
-        }
-        return res.text()
-      })
-      .then(data => dispatch(getEditData(data)))
-      .catch(err => console.log(err))
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      console.log(response.statusText);
+      throw new Error('Failed to update price');
+    }
+
+    const data = await response.text();
+    dispatch(getEditData(data));
+
+  } catch (err) {
+    console.error(err);
   }
-}
+};
+

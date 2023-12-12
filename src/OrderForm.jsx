@@ -78,21 +78,23 @@ const OrderForm = ({orders}) => {
         </Form.Item>
       </Form>
 
-      <Modal
-        title="Google Map"
-        open={isMapOpen}
-        onCancel={handleCancel}
-        footer={null}
-        width={800}
-      >
-        {/*<div style={{ height: '400px', width: '100%' }}>*/}
-        {/*  <GoogleMapReact*/}
-        {/*    bootstrapURLKeys={{ key: 'AIzaSyCZGW1Q9MWGjAbkmvcTc_Ro8s5ME5vKewE' }}*/}
-        {/*    defaultCenter={defaultProps.center}*/}
-        {/*    defaultZoom={defaultProps.zoom}*/}
-        {/*    onClick={onMapClick}*/}
-        {/*  />*/}
-        {/*</div>*/}
+      <Modal title="Google Map"
+             open={isMapOpen}
+             onCancel={handleCancel}
+             footer={null}
+             width={800}>
+        <div style={{height: '400px', width: '100%'}}>
+          {/*<MapContainer*/}
+          {/*  center={[40.4093, 49.8671,]}*/}
+          {/*  zoom={10}*/}
+          {/*  style={{height: '100%', width: '100%'}}*/}
+          {/*>*/}
+          {/*  <TileLayer*/}
+          {/*    url={`https://api.maptiler.com/maps/streets/style.json?key=COhoD3buRwSyj1Hvp2As`}*/}
+          {/*    attribution="MapTiler"*/}
+          {/*  />*/}
+          {/*</MapContainer>*/}
+        </div>
       </Modal>
     </div>
   );

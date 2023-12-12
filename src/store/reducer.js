@@ -23,6 +23,9 @@ const productsSlice = createSlice({
     getOrder: (state, action) => {
       return {...state, myBagArray: action.payload}
     },
+    getAllOrders: (state, action) => {
+      return {...state, orderArray: action.payload}
+    },
     getPostData: (state, action) => {
       return {...state, addBagInfo: action.payload}
     },
@@ -50,6 +53,7 @@ const productsSlice = createSlice({
 export const {
   getProducts,
   getOrder,
+  getAllOrders,
   getPostData,
   getSendOrderData,
   getDeletedBag,

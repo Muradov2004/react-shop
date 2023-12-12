@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {notification, Button} from "antd";
+import {notification, Button, Card} from "antd";
 import {deleteFromProductsFetch, getProductsFetch, searchProductFetch} from "./store/fetchs";
 import AddProductModal from "./store/AddProductModal";
 import UpdateProductModal from "./UpdateProductModal";
+import AllOrders from "./AllOrders";
 
 let Admin = () => {
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
@@ -80,6 +81,7 @@ let Admin = () => {
       <ul>
         {filteredProducts.map((item, index) => {
           return (
+            // <Card></Card>
             <div key={index}>
               <div>
                 <img src={item.product_image} alt="Product Img"/>
@@ -95,12 +97,14 @@ let Admin = () => {
           );
         })}
       </ul>
+      <AllOrders />
       <AddProductModal isAddProductModalOpen={isAddProductModalOpen}
                        setIsAddProductModalOpen={setIsAddProductModalOpen}/>
       <UpdateProductModal isUpdateProductModalOpen={isUpdateProductModalOpen}
                           setIsUpdateProductModalOpen={setIsUpdateProductModalOpen}
                           product={product}
                           setProduct={setProduct}/>
+
       {contextHolder}
     </div>
   );

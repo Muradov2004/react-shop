@@ -8,10 +8,12 @@ import ProductInfo from "./ProductInfo";
 
 function App() {
   return (
-    <div className="">
-      <Link to='/'>Products</Link>
-      <Link to='/orders'>Orders</Link>
-      <Link to='/admin'>Admin</Link>
+    <div className='App'>
+      <div className="navbar">
+        <Link to='/' activeClassName='active-link'>Products</Link>
+        <Link to='/orders' activeClassName='active-link'>Orders</Link>
+        <Link to='/admin' activeClassName='active-link'>Admin</Link>
+      </div>
 
       <Routes>
         <Route path='/' element={<Products/>}/>
