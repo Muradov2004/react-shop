@@ -23,52 +23,40 @@ const OrderForm = ({orders}) => {
 
   return (
     <div>
-      <Form
-        labelCol={{span: 8}}
-        wrapperCol={{span: 16}}
-        initialValues={{remember: true}}
-        onFinish={onFinish}
-      >
-        <Form.Item
-          label="First Name"
-          name="firstName"
-          rules={[{required: true, message: 'Please input your first name!'}]}
-        >
+      <Form labelCol={{span: 8}}
+            wrapperCol={{span: 16}}
+            initialValues={{remember: true}}
+            onFinish={onFinish}>
+        <Form.Item label="First Name"
+                   name="firstName"
+                   rules={[{required: true, message: 'Please input your first name!'}]}>
           <Input/>
         </Form.Item>
 
-        <Form.Item
-          label="Last Name"
-          name="lastName"
-          rules={[{required: true, message: 'Please input your last name!'}]}
-        >
+        <Form.Item label="Last Name"
+                   name="lastName"
+                   rules={[{required: true, message: 'Please input your last name!'}]}>
           <Input/>
         </Form.Item>
 
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {required: true, message: 'Please input your email!'},
-            {type: 'email', message: 'Please enter a valid email address!'},
-          ]}
-        >
+        <Form.Item label="Email"
+                   name="email"
+                   rules={[
+                     {required: true, message: 'Please input your email!'},
+                     {type: 'email', message: 'Please enter a valid email address!'},
+                   ]}>
           <Input/>
         </Form.Item>
 
-        <Form.Item
-          label="Phone Number"
-          name="phoneNumber"
-          rules={[{required: true, message: 'Please input your phone number!'}]}
-        >
+        <Form.Item label="Phone Number"
+                   name="phoneNumber"
+                   rules={[{required: true, message: 'Please input your phone number!'}]}>
           <Input/>
         </Form.Item>
 
-        <Form.Item
-          label="Address"
-          name="address"
-          rules={[{required: true, message: 'Please input your address!'}]}
-        >
+        <Form.Item label="Address"
+                   name="address"
+                   rules={[{required: true, message: 'Please input your address!'}]}>
           <Input/>
         </Form.Item>
 

@@ -1,8 +1,12 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {deleteFromOrderFetch, getOrderFetch, updateOrderCountFetch} from "./store/fetchs";
-import {InputNumber} from "antd";
+import {InputNumber, Input, Button, Card} from "antd";
 import OrderForm from "./OrderForm";
+import './Order.css';
+
+const {Search} = Input;
+const {Meta} = Card;
 
 let Order = () => {
   let [filterOrders, setFilterOrders] = useState([]);
@@ -46,31 +50,35 @@ let Order = () => {
   }
 
   return (
-    <div>
-      <h1>Orders</h1>
-      <input
-        type="text"
-        placeholder="Search by product name"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
-      <button onClick={handleSortAscDesc}>{content}</button>
-      <OrderForm orders={orderedProducts}/>
-      <ul>{filterOrders.map((item, index) => {
-        return (
-          <div key={index}>
-            <img src={item.product_image} alt="#"/>
-            <p>{item.product_name}</p>
-            <p>{item.product_description}</p>
-            <p>{item.product_price}</p>
-            <p>{item.store_name}</p>
-            <p>{item.store_address}</p>
-            <InputNumber min={1} defaultValue={item.count}
-                         onChange={(value) => handleCountChanged(item.id, value)}/>
-            <button onClick={() => handleDelete(item.id)}>Delete</button>
-          </div>
-        )
-      })}</ul>
+    <div className='order'>
+      <div className='top'>
+        <h1>Orders</h1>
+        <Search placeholder="Search by product name"
+                allowClear
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                style={{width: 300}}/>
+        <Button onClick={handleSortAscDesc}>{content}</Button>
+      </div>
+      <div className='order-main'>
+        <ul id='cards-playground'>{filterOrders.map((item, index) => {
+          return (
+            <Card key={index}
+                  hoverable cover={<img src={item.product_image} alt="#"/>}
+                  style={{width: '230px',marginTop:'10px'}}>
+              <Meta title={item.product_name} description={item.product_description}/>
+              <Meta description={`Price : ${item.product_price}`}/>
+              <Meta description={`Store name : ${item.store_name}`}/>
+              <Meta description={`Store address : ${item.store_address}`}/>
+              <InputNumber min={1} defaultValue={item.count}
+                           onChange={(value) => handleCountChanged(item.id, value)}
+                           style={{margin:3}}/>
+              <Button onClick={() => handleDelete(item.id)}>Delete</Button>
+            </Card>
+          )
+        })}</ul>
+        <OrderForm orders={orderedProducts}/>
+      </div>
     </div>
   )
 }

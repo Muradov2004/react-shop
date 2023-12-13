@@ -100,8 +100,7 @@ let Products = () => {
                 allowClear
                 onChange={(e) => setSearchValue(e.target.value)}
                 value={searchValue}
-                style={{width: 300}}
-        />
+                style={{width: 300}}/>
         <Button onClick={handleSortAscDesc}>{content}</Button>
       </div>
       <ul id='components-grid-demo-playground'>
