@@ -23,8 +23,14 @@ const OrderForm = ({orders}) => {
 
   return (
     <div>
-      <Form labelCol={{span: 8}}
-            wrapperCol={{span: 16}}
+      <Form layout='vertical'
+            style={{
+              width: '38vw',
+              border: '1px solid #dbdbdb',
+              borderRadius: '8px',
+              padding: 10,
+              marginLeft: 10
+            }}
             initialValues={{remember: true}}
             onFinish={onFinish}>
         <Form.Item label="First Name"
@@ -60,7 +66,7 @@ const OrderForm = ({orders}) => {
           <Input/>
         </Form.Item>
 
-        <Form.Item wrapperCol={{offset: 8, span: 16}}>
+        <Form.Item style={{margin: 10}}>
           <Button type="primary" htmlType="submit">Send</Button>
           <Button type="default" onClick={showModal} style={{marginLeft: '8px'}}>Open Google Map</Button>
         </Form.Item>

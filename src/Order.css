@@ -18,3 +18,7 @@
     height: 250px;
     object-fit: contain;
 }
+
+.ant-form-item {
+    margin-bottom: 3px;
+}

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {notification, Button, Card} from "antd";
 import {deleteFromProductsFetch, getProductsFetch, searchProductFetch} from "./store/fetchs";
-import AddProductModal from "./store/AddProductModal";
+import AddProductModal from "./AddProductModal";
 import UpdateProductModal from "./UpdateProductModal";
 import AllOrders from "./AllOrders";
 

@@ -65,14 +65,16 @@ let Order = () => {
           return (
             <Card key={index}
                   hoverable cover={<img src={item.product_image} alt="#"/>}
-                  style={{width: '230px',marginTop:'10px'}}>
-              <Meta title={item.product_name} description={item.product_description}/>
-              <Meta description={`Price : ${item.product_price}`}/>
-              <Meta description={`Store name : ${item.store_name}`}/>
-              <Meta description={`Store address : ${item.store_address}`}/>
+                  style={{width: '230px', marginTop: '10px'}}>
+              <div style={{marginBottom: 10}}>
+                <Meta title={item.product_name} description={item.product_description}/>
+                <Meta description={`Price : ${item.product_price}`}/>
+                <Meta description={item.store_name}/>
+                <Meta description={item.store_address}/>
+              </div>
               <InputNumber min={1} defaultValue={item.count}
                            onChange={(value) => handleCountChanged(item.id, value)}
-                           style={{margin:3}}/>
+                           style={{marginRight: 3}}/>
               <Button onClick={() => handleDelete(item.id)}>Delete</Button>
             </Card>
           )

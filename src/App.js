@@ -10,9 +10,9 @@ function App() {
   return (
     <div className='App'>
       <div className="navbar">
-        <Link to='/' activeClassName='active-link'>Products</Link>
-        <Link to='/orders' activeClassName='active-link'>Orders</Link>
-        <Link to='/admin' activeClassName='active-link'>Admin</Link>
+        <Link to='/' activeclassname='active-link'>Products</Link>
+        <Link to='/orders' activeclassname='active-link'>Orders</Link>
+        <Link to='/admin' activeclassname='active-link'>Admin</Link>
       </div>
 
       <Routes>
