@@ -42,7 +42,8 @@ let Order = () => {
     }
   }
   let handleCountChanged = (id, value) => {
-    dispatch(updateOrderCountFetch(id, value));
+    dispatch(updateOrderCountFetch(id, value))
+      .then(() => dispatch(getOrderFetch()));
   }
   let handleDelete = (id) => {
     dispatch(deleteFromOrderFetch(id))

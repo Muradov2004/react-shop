@@ -15,7 +15,7 @@ let ProductInfo = () => {
     }
   }, [dispatch, products]);
 
-  const product = products[parseInt(productId) - 1];
+  const product = products.find((item) => item.id === parseInt(productId));
   if (!product) {
     return <div>Sorry,Product not found</div>;
   }
@@ -23,7 +23,7 @@ let ProductInfo = () => {
   return (
     <div className='productinfo-div'>
       <Image src={product.product_image} alt=""
-             style={{width:500, height:400,objectFit:"contain"}}/>
+             style={{width: 500, height: 400, objectFit: "contain"}}/>
       <div className='info-div'>
         <h1>{product.product_name}</h1>
         <h3>${product.product_price}</h3>

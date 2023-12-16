@@ -1,10 +1,22 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Modal} from 'antd';
 import {useDispatch} from "react-redux";
 import {sendOrderFetch} from "./store/fetchs";
+import Map from './Map';
 
 const OrderForm = ({orders}) => {
   const [isMapOpen, setIsMapOpen] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(null);
+  const [mapCoordinates, setMapCoordinates] = useState({latitude: null, longitude: null});
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    let sum = 0;
+    orders.forEach(item => sum += (item.product_price * item.count));
+    setTotalPrice(sum);
+    if (sum === 0) setIsDisabled(true);
+    else setIsDisabled(false);
+  }, [orders]);
 
   let dispatch = useDispatch();
   const showModal = () => {
@@ -16,20 +28,31 @@ const OrderForm = ({orders}) => {
   };
 
   const onFinish = (values) => {
-    let obj = {...values, ordersArr: [...orders]};
+    let obj = {...values, ordersArr: [...orders], ...mapCoordinates};
+    console.log(obj);
     dispatch(sendOrderFetch(obj));
   };
 
+  const handleMapCoordinates = (latitude, longitude) => {
+    setMapCoordinates({latitude, longitude});
+  };
+
+  const validateCoordinates = (_, value) => {
+    if (mapCoordinates.longitude === null && mapCoordinates.latitude === null) {
+      return Promise.reject('Please select a location from the map.');
+    }
+    return Promise.resolve();
+  };
 
   return (
     <div>
       <Form layout='vertical'
             style={{
-              width: '38vw',
+              width: 400,
               border: '1px solid #dbdbdb',
               borderRadius: '8px',
               padding: 10,
-              marginLeft: 10
+              marginLeft: 10,
             }}
             initialValues={{remember: true}}
             onFinish={onFinish}>
@@ -66,28 +89,32 @@ const OrderForm = ({orders}) => {
           <Input/>
         </Form.Item>
 
+        <Form.Item label="Longitude"
+                   rules={[{required: true, validator: validateCoordinates}]}>
+          <p>{mapCoordinates.longitude}</p>
+        </Form.Item>
+
+        <Form.Item label="Latitude"
+                   rules={[{required: true, validator: validateCoordinates}]}>
+          <p>{mapCoordinates.latitude}</p>
+        </Form.Item>
+
         <Form.Item style={{margin: 10}}>
-          <Button type="primary" htmlType="submit">Send</Button>
+          <Button type="primary" htmlType="submit" disabled={isDisabled}>Send</Button>
           <Button type="default" onClick={showModal} style={{marginLeft: '8px'}}>Open Google Map</Button>
+        </Form.Item>
+        <Form.Item>
+          <h2>Total price {totalPrice}</h2>
         </Form.Item>
       </Form>
 
       <Modal title="Google Map"
              open={isMapOpen}
              onCancel={handleCancel}
-             footer={null}
+             footer={<Button onClick={handleCancel}>OK</Button>}
              width={800}>
         <div style={{height: '400px', width: '100%'}}>
-          {/*<MapContainer*/}
-          {/*  center={[40.4093, 49.8671,]}*/}
-          {/*  zoom={10}*/}
-          {/*  style={{height: '100%', width: '100%'}}*/}
-          {/*>*/}
-          {/*  <TileLayer*/}
-          {/*    url={`https://api.maptiler.com/maps/streets/style.json?key=COhoD3buRwSyj1Hvp2As`}*/}
-          {/*    attribution="MapTiler"*/}
-          {/*  />*/}
-          {/*</MapContainer>*/}
+          <Map onCoordinatesChange={handleMapCoordinates}/>
         </div>
       </Modal>
     </div>

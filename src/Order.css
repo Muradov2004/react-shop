@@ -4,7 +4,7 @@
 
 .order-main {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto min-content;
 }
 
 #cards-playground {
@@ -17,6 +17,10 @@
     width: 100%;
     height: 250px;
     object-fit: contain;
+}
+
+#cards-playground .ant-card{
+    height: 460px;
 }
 
 .ant-form-item {

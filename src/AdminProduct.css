@@ -1,0 +1,11 @@
+#cards-playground {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#cards-playground img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+}

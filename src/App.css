@@ -12,10 +12,13 @@ a{
 }
 
 .navbar {
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-around;
     background-color: #69a1fa;
     padding: 10px;
+    z-index: 99;
 }
 
 .active-link {

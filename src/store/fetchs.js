@@ -49,18 +49,27 @@ export const deleteFromOrderFetch = (id) => dispatch =>
     .then(data => dispatch(getDeletedBag(data)))
     .catch(err => console.log(err))
 export const updateOrderCountFetch = (id, count) => dispatch => {
-  fetch(`http://localhost:5000/update-order-count/${id}`, {
+  return fetch(`http://localhost:5000/update-order-count/${id}`, {
     method: 'PUT',
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify({count})
   })
     .then(res => {
-      if (!res.ok) console.log(res.statusText);
+      if (!res.ok) {
+        console.log(res.statusText);
+        throw new Error('Failed to update order count');
+      }
       return res.text();
     })
-    .then(data => dispatch(updateOrderCount(data)))
-    .catch(err => console.log(err));
-}
+    .then(data => {
+      dispatch(updateOrderCount(data));
+      return data;
+    })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+};
 export const sendOrderFetch = (obj) => dispatch => {
   fetch('http://localhost:5000/add-orders', {
     method: 'POST',
