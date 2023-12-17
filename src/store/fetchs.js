@@ -17,7 +17,7 @@ export const getProductsFetch = () => dispatch =>
     .then(data => dispatch(getProducts(data)))
     .catch(err => console.log(err))
 export const addToOrderFetch = (obj) => dispatch => {
-  fetch('http://localhost:5000/add-mybag', {
+  return fetch('http://localhost:5000/add-mybag', {
     method: 'POST',
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify(obj)

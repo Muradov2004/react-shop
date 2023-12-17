@@ -1,6 +1,6 @@
 import {Button, Form, Input, Modal} from "antd";
 import {useState} from "react";
-import {addProductAdminFetch, getProductsFetch} from "./store/fetchs";
+import {addProductAdminFetch, getProductsFetch} from "../store/fetchs";
 import {useDispatch} from "react-redux";
 
 let AddProductModal = ({isAddProductModalOpen, setIsAddProductModalOpen}) => {

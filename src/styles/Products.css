@@ -11,7 +11,7 @@
 
 #components-grid-demo-playground .ant-card {
     width: 100%;
-    height: 400px;
+    height: 350px;
     display: flex;
     flex-direction: column;
 }

@@ -12,9 +12,7 @@ const productsSlice = createSlice({
     deleteProductsInfo: null,
     adminEdited: null,
     adminAdded: null,
-    updateOrderCountInfo: null,
-    isLoading: false,
-    error: null
+    updateOrderCountInfo: null
   },
   reducers: {
     getProducts: (state, action) => {

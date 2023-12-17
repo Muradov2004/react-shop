@@ -1,44 +1,27 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
-import {getProductsFetch, searchProductFetch} from "./store/fetchs";
+import {getProductsFetch, searchProductFetch} from "../../store/fetchs";
 import {Link} from "react-router-dom";
-import {Button, Card, Input, notification} from "antd";
-import './Products.css';
+import {Button, Card, Carousel, Empty, Input} from "antd";
+import '../../styles/Products.css';
+import ProductCarousel from "./ProductCarousel";
 
 const {Search} = Input;
 const {Meta} = Card;
-
 
 let Products = () => {
   let [filteredProducts, setFilteredProducts] = useState([]);
   let [searchValue, setSearchValue] = useState('');
   let [content, setContent] = useState('asc');
   let products = useSelector((state) => state.products.productArray)
-  let addInfo = useSelector((state) => state.products.addBagInfo)
   let dispatch = useDispatch()
-  const [api, contextHolder] = notification.useNotification();
-  const openNotification = () => {
-    api.info({
-      message: addInfo,
-      placement: "bottom",
-      style: {
-        minHeight: 'min-content',
-      },
-    });
-  };
 
   useEffect(() => {
     dispatch(getProductsFetch())
   }, [dispatch]);
   useEffect(() => {
-    console.log(products);
     sortArray(localStorage.getItem("male"), localStorage.getItem("female"));
   }, [products]);
-  useEffect(() => {
-    if (addInfo) {
-      openNotification();
-    }
-  }, [addInfo]);
   useEffect(() => {
     if (searchValue !== '') dispatch(searchProductFetch(searchValue));
     else dispatch(getProductsFetch());
@@ -92,8 +75,18 @@ let Products = () => {
     }
   }
 
+  if (filteredProducts.length === 0) {
+    return (
+      <div>
+        <h1>Products</h1>
+        <Empty/>
+      </div>
+    );
+  }
+
   return (
     <div className='product'>
+      <ProductCarousel products={filteredProducts}/>
       <div className='top'>
         <h1>Products</h1>
         <Search placeholder="Search by product name"
@@ -116,7 +109,6 @@ let Products = () => {
           )
         })}
       </ul>
-      {contextHolder}
     </div>
   );
 }

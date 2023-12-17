@@ -1,9 +1,10 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
-import {deleteFromOrderFetch, getOrderFetch, updateOrderCountFetch} from "./store/fetchs";
-import {InputNumber, Input, Button, Card} from "antd";
+import {deleteFromOrderFetch, getOrderFetch, updateOrderCountFetch} from "../../store/fetchs";
+import {InputNumber, Input, Button, Card, notification, Empty} from "antd";
 import OrderForm from "./OrderForm";
-import './Order.css';
+import '../../styles/Order.css';
+import {getDeletedBag, updateOrderCount} from "../../store/reducer";
 
 const {Search} = Input;
 const {Meta} = Card;
@@ -11,10 +12,22 @@ const {Meta} = Card;
 let Order = () => {
   let [filterOrders, setFilterOrders] = useState([]);
   let orderedProducts = useSelector((state) => state.products.myBagArray);
-  let info = useSelector((state) => state.products.updateOrderCountInfo);
+  let infoChange = useSelector((state) => state.products.updateOrderCountInfo);
+  let infoDelete = useSelector((state) => state.products.deleteFromBagInfo);
   let [content, setContent] = useState('asc');
   let [searchValue, setSearchValue] = useState('');
   let dispatch = useDispatch();
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (msg) => {
+    api.info({
+      message: msg,
+      placement: "bottom",
+      style: {
+        minHeight: "min-content",
+      },
+    });
+  };
   useEffect(() => {
     dispatch(getOrderFetch())
   }, [dispatch]);
@@ -22,8 +35,17 @@ let Order = () => {
     setFilterOrders(orderedProducts);
   }, [orderedProducts]);
   useEffect(() => {
-    console.log(info);
-  }, [info]);
+    if (infoChange) {
+      openNotification(infoChange);
+      dispatch(updateOrderCount(null));
+    }
+  }, [infoChange]);
+  useEffect(() => {
+    if (infoDelete) {
+      openNotification(infoDelete);
+      dispatch(getDeletedBag(null));
+    }
+  }, [infoDelete]);
   useEffect(() => {
     let newArr = orderedProducts.filter((item) => {
       const regex = new RegExp(searchValue, "i");
@@ -48,6 +70,14 @@ let Order = () => {
   let handleDelete = (id) => {
     dispatch(deleteFromOrderFetch(id))
       .then(() => dispatch(getOrderFetch()));
+  }
+
+  if (filterOrders.length === 0){
+    return (
+      <div style={{height:'100vw'}}>
+        <Empty description='Your bag is empty' style={{marginTop:200}}/>
+      </div>
+    )
   }
 
   return (
@@ -80,8 +110,9 @@ let Order = () => {
             </Card>
           )
         })}</ul>
-        <OrderForm orders={orderedProducts}/>
+        <OrderForm orders={orderedProducts} openNotification={openNotification}/>
       </div>
+      {contextHolder}
     </div>
   )
 }

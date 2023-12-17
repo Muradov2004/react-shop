@@ -1,0 +1,13 @@
+.carousel-row {
+    background: #364d79;
+    display: flex;
+    justify-content: space-around;
+}
+
+.carousel-image {
+    margin-bottom: 25px;
+    margin-top: 5px;
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}

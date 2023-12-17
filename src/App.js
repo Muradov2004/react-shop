@@ -1,11 +1,11 @@
-import './App.css';
+import './styles/App.css';
 import {Link, Route, Routes} from "react-router-dom";
-import Products from "./Products";
-import Order from "./Order";
-import Admin from "./Admin";
-import ProductInfo from "./ProductInfo";
-import AdminProducts from "./AdminProducts";
-import AdminOrders from "./AdminOrders";
+import Products from "./components/Product/Products";
+import Order from "./components/Order/Order";
+import Admin from "./components/Admin/Admin";
+import ProductInfo from "./components/Product/ProductInfo";
+import AdminProducts from "./components/Admin/AdminProducts";
+import AdminOrders from "./components/Admin/AdminOrders";
 import {useState} from "react";
 
 function App() {

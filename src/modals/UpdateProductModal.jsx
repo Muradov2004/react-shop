@@ -1,7 +1,7 @@
 import {Button, Form, Input, Modal} from "antd";
 import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
-import {changePriceFetch, getProductsFetch} from "./store/fetchs";
+import {changePriceFetch, getProductsFetch} from "../store/fetchs";
 
 let UpdateProductModal = ({isUpdateProductModalOpen, setIsUpdateProductModalOpen, product, setProduct}) => {
   let dispatch = useDispatch();
@@ -18,14 +18,14 @@ let UpdateProductModal = ({isUpdateProductModalOpen, setIsUpdateProductModalOpen
 
   return (
     <Modal
-      title="Add Product"
+      title="Update Product"
       open={isUpdateProductModalOpen}
       onCancel={() => setIsUpdateProductModalOpen(false)}
       footer={[
         <Button key="cancel" onClick={() => setIsUpdateProductModalOpen(false)}>
           Cancel
         </Button>,
-        <Button key="add" type="primary" onClick={handleUpdate}>
+        <Button key="update" type="primary" onClick={handleUpdate}>
           Update
         </Button>,
       ]}>
