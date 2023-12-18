@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {getProductsFetch, searchProductFetch} from "../../store/fetchs";
 import {Link} from "react-router-dom";
-import {Button, Card, Carousel, Empty, Input} from "antd";
+import {Button, Card, Empty, Input} from "antd";
 import '../../styles/Products.css';
 import ProductCarousel from "./ProductCarousel";
 
@@ -31,15 +31,15 @@ let Products = () => {
     let newArr = [...products];
     newArr.sort((a, b) => {
       if (man < female) {
-        if (a.product_name.includes("Qadın") && !b.product_name.includes("Qadın")) {
+        if (a.gender === 'women' && !(b.gender === 'women')) {
           return -1;
-        } else if (!a.product_name.includes("Qadın") && b.product_name.includes("Qadın")) {
+        } else if (!(a.gender === 'women') && b.gender === 'women') {
           return 1;
         }
       } else if (man > female) {
-        if (a.product_name.includes("Kişi") && !b.product_name.includes("Kişi")) {
+        if (a.gender === 'men' && !(b.gender === 'men')) {
           return -1;
-        } else if (!a.product_name.includes("Kişi") && b.product_name.includes("Kişi")) {
+        } else if (!(a.gender === 'men') && b.gender === 'men') {
           return 1;
         }
       }
@@ -47,8 +47,9 @@ let Products = () => {
     });
     setFilteredProducts(newArr);
   }
-  let handleClick = (name) => {
-    if (name.includes('Qadın')) {
+  let handleClick = (gender) => {
+    console.log(gender);
+    if (gender === 'women') {
       if (localStorage.getItem('female')) {
       } else {
         localStorage.setItem('female', 0)
@@ -56,7 +57,7 @@ let Products = () => {
       let i = localStorage.getItem('female')
       i++
       localStorage.setItem('female', i)
-    } else if (name.includes('Kişi')) {
+    } else if (gender === 'men') {
       if (!localStorage.getItem('male')) {
         localStorage.setItem('male', 0)
       }
@@ -99,7 +100,7 @@ let Products = () => {
       <ul id='components-grid-demo-playground'>
         {filteredProducts.map((item, index) => {
           return (
-            <Link key={index} to={`/product/${item.id}`} onClick={() => handleClick(item.product_name)}
+            <Link key={index} to={`/product/${item.id}`} onClick={() => handleClick(item.gender)}
                   style={{width: '240px'}}>
               <Card hoverable
                     cover={<img src={item.product_image} alt="Product Img"/>}>
