@@ -20,7 +20,7 @@ let Products = () => {
     dispatch(getProductsFetch())
   }, [dispatch]);
   useEffect(() => {
-    sortArray(localStorage.getItem("male"), localStorage.getItem("female"));
+    sortArray(parseInt(localStorage.getItem("male")), parseInt(localStorage.getItem("female")));
   }, [products]);
   useEffect(() => {
     if (searchValue !== '') dispatch(searchProductFetch(searchValue));

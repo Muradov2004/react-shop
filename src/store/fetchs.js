@@ -48,6 +48,13 @@ export const deleteFromOrderFetch = (id) => dispatch =>
     .then(res => res.text())
     .then(data => dispatch(getDeletedBag(data)))
     .catch(err => console.log(err))
+export const deleteAllItemsFromOrderFetch = () => dispatch =>
+  fetch('http://localhost:5000/delete-all-mybag', {
+    method: 'DELETE'
+  })
+    .then(res => res.json())
+    .then(data => dispatch(getOrder(data)))
+    .catch(err => console.log(err))
 export const updateOrderCountFetch = (id, count) => dispatch => {
   return fetch(`http://localhost:5000/update-order-count/${id}`, {
     method: 'PUT',

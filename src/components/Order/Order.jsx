@@ -72,10 +72,10 @@ let Order = () => {
       .then(() => dispatch(getOrderFetch()));
   }
 
-  if (filterOrders.length === 0){
+  if (filterOrders.length === 0) {
     return (
-      <div style={{height:'100vw'}}>
-        <Empty description='Your bag is empty' style={{marginTop:200}}/>
+      <div style={{height: '100vw'}}>
+        <Empty description='Your bag is empty' style={{marginTop: 200}}/>
       </div>
     )
   }

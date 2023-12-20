@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Modal} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
-import {sendOrderFetch} from "../../store/fetchs";
+import {deleteAllItemsFromOrderFetch, sendOrderFetch} from "../../store/fetchs";
 import Map from '../Map';
 import {getSendOrderData} from "../../store/reducer";
 
@@ -12,6 +12,7 @@ const OrderForm = ({orders, openNotification}) => {
   const [isDisabled, setIsDisabled] = useState(true);
   let infoSend = useSelector((state) => state.products.sendOrderInfo);
 
+  const [form] = Form.useForm();
   useEffect(() => {
     let sum = 0;
     orders.forEach(item => sum += (item.product_price * item.count));
@@ -39,6 +40,9 @@ const OrderForm = ({orders, openNotification}) => {
   const onFinish = (values) => {
     let obj = {...values, ordersArr: [...orders], ...mapCoordinates};
     dispatch(sendOrderFetch(obj));
+    dispatch(deleteAllItemsFromOrderFetch());
+    form.resetFields();
+    setMapCoordinates({latitude: null, longitude: null});
   };
 
   const handleMapCoordinates = (latitude, longitude) => {
@@ -55,6 +59,7 @@ const OrderForm = ({orders, openNotification}) => {
   return (
     <div>
       <Form layout='vertical'
+            form={form}
             style={{
               width: 400,
               border: '1px solid #dbdbdb',
