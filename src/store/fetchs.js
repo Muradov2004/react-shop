@@ -11,13 +11,15 @@ import {
   updateOrderCount
 } from './reducer'
 
+const BaseUrl = 'http://localhost:5000';
+
 export const getProductsFetch = () => dispatch =>
-  fetch('http://localhost:5000/goods')
+  fetch(`${BaseUrl}/goods`)
     .then(res => res.json())
     .then(data => dispatch(getProducts(data)))
     .catch(err => console.log(err))
 export const addToOrderFetch = (obj) => dispatch => {
-  return fetch('http://localhost:5000/add-mybag', {
+  return fetch(`${BaseUrl}/add-mybag`, {
     method: 'POST',
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify(obj)
@@ -32,31 +34,31 @@ export const addToOrderFetch = (obj) => dispatch => {
     .catch(err => console.log(err))
 }
 export const getOrderFetch = () => dispatch =>
-  fetch('http://localhost:5000/my-bag')
+  fetch(`${BaseUrl}/my-bag`)
     .then(res => res.json())
     .then(data => dispatch(getOrder(data)))
     .catch(err => console.log(err))
 export const getAllOrderFetch = () => dispatch =>
-  fetch('http://localhost:5000/orders')
+  fetch(`${BaseUrl}/orders`)
     .then(res => res.json())
     .then(data => dispatch(getAllOrders(data)))
     .catch(err => console.log(err))
 export const deleteFromOrderFetch = (id) => dispatch =>
-  fetch(`http://localhost:5000/delete-mybag/${id}`, {
+  fetch(`${BaseUrl}/delete-mybag/${id}`, {
     method: 'DELETE',
   })
     .then(res => res.text())
     .then(data => dispatch(getDeletedBag(data)))
     .catch(err => console.log(err))
 export const deleteAllItemsFromOrderFetch = () => dispatch =>
-  fetch('http://localhost:5000/delete-all-mybag', {
+  fetch(`${BaseUrl}/delete-all-mybag`, {
     method: 'DELETE'
   })
     .then(res => res.json())
     .then(data => dispatch(getOrder(data)))
     .catch(err => console.log(err))
 export const updateOrderCountFetch = (id, count) => dispatch => {
-  return fetch(`http://localhost:5000/update-order-count/${id}`, {
+  return fetch(`${BaseUrl}/update-order-count/${id}`, {
     method: 'PUT',
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify({count})
@@ -78,7 +80,7 @@ export const updateOrderCountFetch = (id, count) => dispatch => {
     });
 };
 export const sendOrderFetch = (obj) => dispatch => {
-  fetch('http://localhost:5000/add-orders', {
+  fetch(`${BaseUrl}/add-orders`, {
     method: 'POST',
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify(obj)
@@ -93,21 +95,21 @@ export const sendOrderFetch = (obj) => dispatch => {
     .catch(err => console.log(err))
 }
 export const deleteFromProductsFetch = (obj) => dispatch =>
-  fetch(`http://localhost:5000/delete-admin/${obj.id}`, {
+  fetch(`${BaseUrl}/delete-admin/${obj.id}`, {
     method: 'DELETE',
   })
     .then(res => res.text())
     .then(data => dispatch(deletedProducts(data)))
     .catch(err => console.log(err))
 export const searchProductFetch = (searchValue) => dispatch =>
-  fetch(`http://localhost:5000/search-goods/${searchValue}`, {
+  fetch(`${BaseUrl}/search-goods/${searchValue}`, {
     method: 'GET',
   })
     .then(res => res.json())
     .then(data => dispatch(getProducts(data)))
     .catch(err => console.log(err))
 export const addProductAdminFetch = (obj) => dispatch =>
-  fetch('http://localhost:5000/add-admin', {
+  fetch(`${BaseUrl}/add-admin`, {
     method: 'POST',
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify(obj)
@@ -119,7 +121,7 @@ export const changePriceFetch = (changedObject, price) => async (dispatch) => {
   try {
     let obj = {...changedObject, product_price: price};
 
-    const response = await fetch(`http://localhost:5000/change-admin/${changedObject.id}`, {
+    const response = await fetch(`${BaseUrl}/change-admin/${changedObject.id}`, {
       method: 'PUT',
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify(obj),
