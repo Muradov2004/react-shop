@@ -2,7 +2,7 @@
 
 - server repository: [Muradov2004/shopserver
   (github.com)](https://github.com/Muradov2004/shopserver)
-- website link: [netlify app](https://myreactshoppy.netlify.app/)
+- website link: [shoppy.com](https://muradov2004.github.io/react-shop/)
 
 # Getting Started with Create React App
 
