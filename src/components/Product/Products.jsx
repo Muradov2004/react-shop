@@ -20,6 +20,12 @@ let Products = () => {
     dispatch(getProductsFetch())
   }, [dispatch]);
   useEffect(() => {
+    if (localStorage.getItem("male") === null) {
+      localStorage.setItem('male', 0);
+    }
+    if (localStorage.getItem("female") === null) {
+      localStorage.setItem('female', 0)
+    }
     sortArray(parseInt(localStorage.getItem("male")), parseInt(localStorage.getItem("female")));
   }, [products]);
   useEffect(() => {
@@ -28,6 +34,7 @@ let Products = () => {
   }, [searchValue]);
 
   let sortArray = (man, female) => {
+
     let newArr = [...products];
     newArr.sort((a, b) => {
       if (man < female) {
@@ -80,7 +87,11 @@ let Products = () => {
     return (
       <div>
         <h1>Products</h1>
-        <Empty/>
+        <Empty description={
+          <span>
+        Server not work! (<a href="https://github.com/Muradov2004/shopserver">server repo</a>)
+      </span>
+        }/>
       </div>
     );
   }
