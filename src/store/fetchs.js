@@ -11,7 +11,7 @@ import {
   updateOrderCount
 } from './reducer'
 
-const BaseUrl = 'http://localhost:5000';
+const BaseUrl = 'https://shoppyserver.onrender.com';
 
 export const getProductsFetch = () => dispatch =>
   fetch(`${BaseUrl}/goods`)
